@@ -162,3 +162,58 @@ FROM tb_producto AS pro
 INNER JOIN tb_fabricante AS fab 
 ON pro.id_fa = fab.id_fa
 WHERE pro.id_fa = 2;
+
+-- Lista el nombre de los productos que tienen un precio menor o igual a 120€.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro <= 120
+ORDER BY precio_pro ASC;
+
+-- Lista el nombre de los productos que tienen un precio mayor o igual a 400€.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro >= 400
+ORDER BY precio_pro ASC;
+
+-- Lista el nombre de los productos que no tienen un precio mayor o igual a 400€.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro < 400
+ORDER BY precio_pro ASC;
+
+-- Lista todos los productos que tengan un precio entre 80€ y 300€. Sin utilizar el operador BETWEEN.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro >= 80 AND precio_pro <= 300
+ORDER BY precio_pro ASC;
+
+-- Lista todos los productos que tengan un precio entre 60€ y 200€. Utilizando el operador BETWEEN.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro 
+BETWEEN 60 AND 200
+ORDER BY precio_pro ASC;
+
+-- Lista todos los productos que tengan un precio mayor que 200€ y que el identificador de fabricante sea igual a 6.
+SELECT id_fa, nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro > 200 AND id_fa = 6;
+
+-- Lista todos los productos donde el identificador de fabricante sea 1, 3 o 5. Sin utilizar el operador IN.
+SELECT *
+FROM tb_producto 
+WHERE id_fa = 1 OR id_fa = 3 OR id_fa = 5;
+
+-- ista todos los productos donde el identificador de fabricante sea 1, 3 o 5. Utilizando el operador IN.
+SELECT *
+FROM tb_producto 
+WHERE id_fa IN(1, 3, 5);
+
+-- Lista el nombre y el precio de los productos en céntimos (Habrá que multiplicar por 100 el valor del precio). Cree un alias para la columna que contiene el precio que se llame céntimos.
+SELECT nombre_pro, precio_pro * 100 AS centimos
+FROM tb_producto;
+
+-- 30) Lista los nombres de los fabricantes cuyo nombre empiece por la letra S.
+SELECT nombre_fa 
+FROM tb_fabricante
+WHERE nombre_fa LIKE 'S%';
