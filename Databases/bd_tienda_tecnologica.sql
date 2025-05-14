@@ -217,3 +217,35 @@ FROM tb_producto;
 SELECT nombre_fa 
 FROM tb_fabricante
 WHERE nombre_fa LIKE 'S%';
+
+-- Lista los nombres de los fabricantes cuyo nombre termine por la vocal e.
+SELECT nombre_fa
+FROM tb_fabricante
+WHERE nombre_fa LIKE '%e';
+
+-- Lista los nombres de los fabricantes cuyo nombre contenga el carácter w.
+SELECT nombre_fa
+FROM tb_fabricante
+WHERE nombre_fa LIKE '%w%';
+
+-- Lista los nombres de los fabricantes cuyo nombre sea de 4 caracteres.
+SELECT nombre_fa
+FROM tb_fabricante
+WHERE LENGTH(nombre_fa) < 5;
+
+-- Devuelve una lista con el nombre de todos los productos que contienen la cadena Portátil en el nombre.
+SELECT nombre_pro
+FROM tb_producto
+WHERE nombre_pro LIKE '%Portátil%';
+
+-- Devuelve una lista con el nombre de todos los productos que contienen la cadena Monitor en el nombre y tienen un precio inferior a 215 €.
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE nombre_pro LIKE '%Monitor%'
+AND precio_pro < 215;
+
+-- Lista el nombre y el precio de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente).
+SELECT nombre_pro, precio_pro
+FROM tb_producto
+WHERE precio_pro >= 215
+ORDER BY precio_pro DESC, nombre_pro ASC;
