@@ -244,8 +244,72 @@ FROM tb_producto
 WHERE nombre_pro LIKE '%Monitor%'
 AND precio_pro < 215;
 
--- Lista el nombre y el precio de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente).
+-- 36) Lista el nombre y el precio de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente).
 SELECT nombre_pro, precio_pro
 FROM tb_producto
 WHERE precio_pro >= 215
 ORDER BY precio_pro DESC, nombre_pro ASC;
+
+-- Consultas multitabla (Composición interna)
+-- Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa;
+
+-- Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos. Ordene el resultado por el nombre del fabricante, por orden alfabético.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+ORDER BY nombre_fa ASC;
+
+-- Devuelve una lista con el identificador del producto, nombre del producto, identificador del fabricante y nombre del fabricante, de todos los productos de la base de datos.
+SELECT id_pro, nombre_pro, fab.id_fa, nombre_fa
+FROM tb_producto
+JOIN tb_fabricante AS fab ON tb_producto.id_fa = fab.id_fa;
+
+-- Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+ORDER BY precio_pro ASC
+LIMIT 1;
+
+-- Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más caro.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+ORDER BY precio_pro DESC
+LIMIT 1;
+
+-- Devuelve una lista de todos los productos del fabricante Lenovo.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+WHERE nombre_fa = 'Lenovo';
+
+-- Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+WHERE nombre_fa = 'Crucial' AND precio_pro > 200;
+
+-- Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Sin utilizar el operador IN.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+WHERE nombre_fa = 'Asus' 
+	OR nombre_fa = 'Hewlett-Packard'
+	OR nombre_fa = 'Seagate';
+
+-- Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Utilizando el operador IN.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+WHERE nombre_fa IN('Asus', 'Hewlett-Packard', 'Seagate');
+
+-- 10) Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre termine por la vocal e.
+SELECT nombre_pro, precio_pro, nombre_fa
+FROM tb_producto
+INNER JOIN tb_fabricante ON tb_producto.id_fa = tb_fabricante.id_fa
+WHERE nombre_fa LIKE '%w%';
+
